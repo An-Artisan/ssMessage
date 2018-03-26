@@ -2,17 +2,16 @@ package message
 
 import "register"
 
-
 type Message struct {
 	Sender    string `json:"sender"`
 	Recipient string `json:"recipient,omitempty"`
 	Content   string `json:"content"`
 }
-var C  register.ClientManager
-func (manager *C) send(message []byte, ignore *Client) {
-	for conn := range manager.clients {
+
+func Send(message []byte, ignore *register.Client, manager *register.ClientManager) {
+	for conn := range manager.Clients {
 		if conn != ignore {
-			conn.send <- message
+			conn.Send <- message
 		}
 	}
 }
