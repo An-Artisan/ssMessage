@@ -43,6 +43,7 @@ func (manager *ClientManager) Start() {
 			manager.Clients[conn] = true
 			jsonMessage, _ := json.Marshal(&message.Message{Content: "/A new socket has connected."})
 			manager.send(jsonMessage, conn)
+			manager.Send()
 		case conn := <-manager.unregister:
 			if _, ok := manager.clients[conn]; ok {
 				close(conn.send)

@@ -8,11 +8,11 @@ type Message struct {
 	Recipient string `json:"recipient,omitempty"`
 	Content   string `json:"content"`
 }
-var C  register.ClientManager
-func (manager *C) send(message []byte, ignore *Client) {
-	for conn := range manager.clients {
+
+func (manager *register.ClientManager) Send(message []byte, ignore *register.Client) {
+	for conn := range manager.Clients {
 		if conn != ignore {
-			conn.send <- message
+			conn.Send <- message
 		}
 	}
 }
