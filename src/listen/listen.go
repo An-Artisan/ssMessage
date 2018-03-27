@@ -4,17 +4,15 @@ import (
 	"net/http"
 	"github.com/gorilla/websocket"
 	"register"
-	"fmt"
 )
 
-func Listen(addr string) error{
-
+func Listen(addr string) error {
+	// 链接
 	http.HandleFunc("/ws", WsHandle)
 	err := http.ListenAndServe(addr, nil)
 
 	return err
 }
-
 
 func WsHandle(res http.ResponseWriter, req *http.Request) {
 
@@ -35,4 +33,3 @@ func WsHandle(res http.ResponseWriter, req *http.Request) {
 	//go client.read()
 	//go client.write()
 }
-
