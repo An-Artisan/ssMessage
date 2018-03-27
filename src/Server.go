@@ -39,9 +39,13 @@ func (manager *ClientManager) start() {
     for {
         select {
         case conn := <-manager.register:
+
+
             manager.clients[conn] = true
             jsonMessage, _ := json.Marshal(&Message{Content: "/A new socket has connected."})
             manager.send(jsonMessage, conn)
+
+
         case conn := <-manager.unregister:
             if _, ok := manager.clients[conn]; ok {
                 close(conn.send)
@@ -49,6 +53,7 @@ func (manager *ClientManager) start() {
                 jsonMessage, _ := json.Marshal(&Message{Content: "/A socket has disconnected."})
                 manager.send(jsonMessage, conn)
             }
+
         case message := <-manager.broadcast:
             for conn := range manager.clients {
                 select {
@@ -110,7 +115,7 @@ func main() {
     fmt.Println("Starting application...")
     go manager.start()
     http.HandleFunc("/ws", wsPage)
-    http.ListenAndServe(":12345", nil)
+    http.ListenAndServe(":8001", nil)
 }
 
 func wsPage(res http.ResponseWriter, req *http.Request) {
