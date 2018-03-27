@@ -1,0 +1,18 @@
+diff a/.idea/workspace.xml b/.idea/workspace.xml	(rejected hunks)
+@@ -1,7 +1,15 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="359b842e-0bf8-4446-83be-143dcf2e8d8a" name="Default" comment="" />
++    <list default="true" id="359b842e-0bf8-4446-83be-143dcf2e8d8a" name="Default" comment="">
++      <change beforePath="" afterPath="$PROJECT_DIR$/pkg/windows_amd64/github.com/gorilla/websocket.a" />
++      <change beforePath="" afterPath="$PROJECT_DIR$/pkg/windows_amd64/github.com/satori/go.uuid.a" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
++      <change beforePath="$PROJECT_DIR$/src/listen/listen.go" afterPath="$PROJECT_DIR$/src/listen/listen.go" />
++      <change beforePath="$PROJECT_DIR$/src/main.go" afterPath="$PROJECT_DIR$/src/main.go" />
++      <change beforePath="$PROJECT_DIR$/src/message/message.go" afterPath="$PROJECT_DIR$/src/message/message.go" />
++      <change beforePath="$PROJECT_DIR$/src/register/register.go" afterPath="$PROJECT_DIR$/src/register/register.go" />
++    </list>
+     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+     <option name="TRACKING_ENABLED" value="true" />
+     <option name="SHOW_DIALOG" value="false" />

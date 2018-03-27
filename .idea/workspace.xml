@@ -28,11 +28,17 @@
       <file leaf-file-name="Server.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server.go">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state relative-caret-position="1242">
+              <caret line="67" column="21" lean-forward="false" selection-start-line="67" selection-start-column="17" selection-end-line="67" selection-end-column="21" />
+              <folding />
+=======
             <state relative-caret-position="972">
               <caret line="48" column="55" lean-forward="false" selection-start-line="48" selection-start-column="48" selection-end-line="48" selection-end-column="55" />
               <folding>
                 <element signature="e#14#149#0" expanded="true" />
               </folding>
+>>>>>>> 44e1face9d923888421f132172ce11ce8365e7b0
             </state>
           </provider>
         </entry>
@@ -51,6 +57,21 @@
       </file>
       <file leaf-file-name="register.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/register/register.go">
+<<<<<<< HEAD
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="15" column="14" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+              <folding>
+                <element signature="e#18#117#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main.go">
+=======
+>>>>>>> 44e1face9d923888421f132172ce11ce8365e7b0
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1">
               <caret line="40" column="39" lean-forward="true" selection-start-line="40" selection-start-column="39" selection-end-line="40" selection-end-column="39" />
@@ -64,8 +85,17 @@
       <file leaf-file-name="listen.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/listen/listen.go">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="0">
+=======
+<<<<<<< HEAD
+            <state relative-caret-position="368">
+              <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+=======
+            <state relative-caret-position="324">
+>>>>>>> origin/master
               <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+>>>>>>> 44e1face9d923888421f132172ce11ce8365e7b0
               <folding>
                 <element signature="e#16#82#0" expanded="true" />
               </folding>
@@ -73,7 +103,13 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
+=======
+<<<<<<< HEAD
+=======
+      <file leaf-file-name="main.go" pinned="false" current-in-tab="true">
+>>>>>>> origin/master
         <entry file="file://$PROJECT_DIR$/src/main.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="351">
@@ -85,6 +121,7 @@
           </provider>
         </entry>
       </file>
+>>>>>>> 44e1face9d923888421f132172ce11ce8365e7b0
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -112,10 +149,16 @@
       <list>
         <option value="$PROJECT_DIR$/src/index.html" />
         <option value="$PROJECT_DIR$/src/Server.go" />
+<<<<<<< HEAD
+        <option value="$PROJECT_DIR$/src/listen/listen.go" />
+        <option value="$PROJECT_DIR$/src/message/message.go" />
+        <option value="$PROJECT_DIR$/src/register/register.go" />
+=======
         <option value="$PROJECT_DIR$/src/register/register.go" />
         <option value="$PROJECT_DIR$/src/message/message.go" />
         <option value="$PROJECT_DIR$/src/main.go" />
         <option value="$PROJECT_DIR$/src/listen/listen.go" />
+>>>>>>> 44e1face9d923888421f132172ce11ce8365e7b0
       </list>
     </option>
   </component>
@@ -271,10 +314,21 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26332623" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15698925" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+=======
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2795699" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2795699" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+>>>>>>> 44e1face9d923888421f132172ce11ce8365e7b0
+>>>>>>> origin/master
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32903227" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -492,6 +546,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1242">
+          <caret line="67" column="21" lean-forward="false" selection-start-line="67" selection-start-column="17" selection-end-line="67" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -502,6 +564,12 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/src/listen/listen.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+=======
     <entry file="file://$PROJECT_DIR$/HelloWorld.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -596,6 +664,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="783">
           <caret line="34" column="22" lean-forward="true" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
+>>>>>>> 44e1face9d923888421f132172ce11ce8365e7b0
           <folding>
             <element signature="e#16#82#0" expanded="true" />
           </folding>
@@ -604,8 +673,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/register/register.go">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+        <state relative-caret-position="276">
+          <caret line="15" column="14" lean-forward="false" selection-start-line="15" selection-start-column="14" selection-end-line="15" selection-end-column="14" />
+=======
         <state relative-caret-position="108">
           <caret line="9" column="18" lean-forward="false" selection-start-line="9" selection-start-column="5" selection-end-line="9" selection-end-column="18" />
+>>>>>>> 44e1face9d923888421f132172ce11ce8365e7b0
           <folding>
             <element signature="e#18#117#0" expanded="true" />
           </folding>
