@@ -26,8 +26,10 @@ func WsHandle(res http.ResponseWriter, req *http.Request) {
 	}
 	// 注册链接,获取client
 	client := messageHandle.SetUserInfo(conn)
+
 	// 把cline写入到注册变量通道
 	messageHandle.Manager.Register <- client
+
 	//client.Socket.WriteMessage(websocket.TextMessage, []byte ("HelloWorld"))
 	//fmt.Print(client)
 

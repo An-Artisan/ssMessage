@@ -6,25 +6,19 @@ import (
 	"fmt"
 )
 
-
 // 定义消息体
 type Message struct {
-	Sender    string `json:"sender"`
+	Sender string `json:"sender"`
 	Recipient string `json:"recipient,omitempty"`
 	Content   string `json:"content"`
 }
 
-func (manager *ClientManager) Send(message []byte, ignore *Client) {
+func (Manager *ClientManager) Send(message []byte, ignore *Client) {
 
-	for conn ,_:= range manager.Clients {
-		fmt.Println(conn.Uid )
-		fmt.Println("===" )
-	}
 	// 广播除当前链接的用户链接信息
-	for conn ,_:= range manager.Clients {
+	for conn := range Manager.Clients {
 		if conn != ignore {
 			conn.Send <- message
-
 		}
 	}
 }
@@ -39,7 +33,7 @@ func Write(conn *Client) {
 		select {
 		// 如果有通道有信息就发送,通道关闭就发送关闭信息 (这里 <-conn.Send第二个结果是一个bool型,false代表通道被关闭)
 		case message, ok := <-conn.Send:
-			if !ok{
+			if !ok {
 				conn.Socket.WriteMessage(websocket.CloseMessage, []byte{})
 				return
 			}
@@ -48,9 +42,9 @@ func Write(conn *Client) {
 	}
 }
 
-func  Read(conn *Client) {
+func Read(conn *Client) {
 	defer func() {
-		Manager.Register <- conn
+		Manager.Unregister <- conn
 		conn.Socket.Close()
 	}()
 	//c.socket.SetReadDeadline(time.Now().Add(3*time.Second))
@@ -65,5 +59,3 @@ func  Read(conn *Client) {
 		Manager.Broadcast <- jsonMessage
 	}
 }
-
-
