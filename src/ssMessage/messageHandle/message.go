@@ -17,17 +17,24 @@ type Message struct {
 
 type Content struct {
 	MessageContent string `json:"messageContent"`
-	HeartBeat   bool `json:"heartBeat"`
+	MUid   int `json:"muid"`
 }
+var HeartMessage = make(chan int)
 
 func (Manager *ClientManager) Send(message []byte, ignore *Client) {
 
+	fmt.Println(Manager.Clients)
 	// 广播除当前链接的用户链接信息
 	for conn := range Manager.Clients {
 		if conn != ignore {
 			conn.Send <- message
 		}
 	}
+}
+
+func (Manager *ClientManager) SendSelf(message []byte, conn *Client) {
+	conn.Send <- message
+
 }
 
 func Write(conn *Client) {
@@ -50,6 +57,7 @@ func Write(conn *Client) {
 }
 
 func Read(conn *Client) {
+
 	defer func() {
 		Manager.Unregister <- conn
 		conn.Socket.Close()
@@ -57,38 +65,29 @@ func Read(conn *Client) {
 	//c.socket.SetReadDeadline(time.Now().Add(3*time.Second))
 	for {
 		_, message, err := conn.Socket.ReadMessage()
+
 		if err != nil {
 			Manager.Unregister <- conn
 			conn.Socket.Close()
 			break
 		}
-		data := make(chan byte)
-		go getMessage([]byte(message), data)
-		go heartBeat(conn,data,4)
+		HeartMessage <- 1
+		// 获取内容
 		var content Content
 		jsonErr  := json.Unmarshal([]byte(message),&content)
+
 		if jsonErr!=nil {
 			Manager.MessageErr <- conn
 		}
-
+		if  content.MUid == 0{
+			Manager.MessageErr <- conn
+			timer := time.NewTimer(1 * time.Second)
+			<-timer.C
+			conn.Socket.Close()
+		}
 		// 收到信息广播给其他人
-		jsonMessage, _ := json.Marshal(&Message{Uid: conn.Uid, Content: string(message)})
+		jsonMessage, _ := json.Marshal(&Message{Uid: conn.Uid, Content: content.MessageContent})
 		Manager.Broadcast <- jsonMessage
 	}
 }
-func getMessage(message []byte, data chan byte) {
-	for _, v := range message {
-		data <- v
-	}
-	close(data)
-}
-func heartBeat(conn *Client, data chan byte, timeout int) {
-	select {
-	case <-data:
-		//beego.Trace(conn.RemoteAddr().String(), string(fk), ": ", "Heart beating ")
-		conn.Socket.SetReadDeadline(time.Now().Add(time.Duration(timeout) * time.Second))
-	case <-time.After(time.Second * 5):
-		Manager.HeartBeat <- conn
-		conn.Socket.Close()
-	}
-}
+

@@ -4,6 +4,7 @@ import (
 	"github.com/satori/go.uuid"
 	"github.com/gorilla/websocket"
 	"encoding/json"
+	"time"
 )
 
 type ClientManager struct {
@@ -84,11 +85,13 @@ func (Manager *ClientManager) Start() {
 		//	心跳检测出错
 		case conn := <-Manager.HeartBeat:
 			jsonMessage, _ := json.Marshal(&Message{Content: "/Net Error,has disconnected"})
-			Manager.Send(jsonMessage,conn)
+			Manager.SendSelf(jsonMessage,conn)
+			timer := time.NewTimer(1 * time.Second)
+			<-timer.C
+			conn.Socket.Close()
 		case conn := <-Manager.MessageErr:
 			jsonMessage, _ := json.Marshal(&Message{Content: "/Net Error,has disconnected"})
-			Manager.Send(jsonMessage,conn)
-
+			Manager.SendSelf(jsonMessage,conn)
 		}
 	}
 }

@@ -6,8 +6,9 @@ import (
 	"ssMessage/messageHandle"
 	"ssMessage/connction"
 )
-
 func main() {
+
+
 
 	fmt.Println("Starting application...")
 	//go Manager.start()
@@ -19,5 +20,7 @@ func main() {
 	if err != nil {
 		fmt.Print(err)
 	}
+
+
 
 }

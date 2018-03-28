@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"github.com/gorilla/websocket"
 	"ssMessage/messageHandle"
+	"time"
 )
 
 
@@ -32,9 +33,33 @@ func WsHandle(res http.ResponseWriter, req *http.Request) {
 
 	//client.Socket.WriteMessage(websocket.TextMessage, []byte ("HelloWorld"))
 	//fmt.Print(client)
+
 	// 连接进来开启一个协程读
 	go messageHandle.Read(client)
 	// 连接进来开启一个协程写
 	go messageHandle.Write(client)
+	//data := make(chan  int)
+	//go getMessage(messageHandle.HeartMessage,data)
+
+	go HeartBeat(client,4)
+	messageHandle.HeartMessage <- 1
+
+}
+
+func HeartBeat(conn *messageHandle.Client, imeout int) {
+
+	for {
+		select {
+		case <-messageHandle.HeartMessage:
+			//beego.Trace(conn.RemoteAddr().String(), string(fk), ": ", "Heart beating ")
+			conn.Socket.SetReadDeadline(time.Now().Add(time.Duration(5) * time.Second))
+		case <-time.After(time.Second * 5):
+			messageHandle.Manager.HeartBeat <- conn
+			return
+
+		}
+
+	}
+
 }
 

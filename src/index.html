@@ -8,7 +8,7 @@
     var conn;
     var msg = $("#msg");
     var log = $("#log");
-
+    var message;
     function appendLog(msg) {
         var d = log[0]
         var doScroll = d.scrollTop == d.scrollHeight - d.clientHeight;
@@ -25,7 +25,8 @@
         if (!msg.val()) {
             return false;
         }
-        conn.send(msg.val());
+        message = '{"messageContent":"'+msg.val()+'","muid":1}'
+        conn.send(message);
         msg.val("");
         return false
     });
@@ -37,6 +38,7 @@
         }
         conn.onmessage = function(evt) {
             appendLog($("<div/>").text(evt.data))
+            console.log(1)
         }
     } else {
         appendLog($("<div><b>WebSockets Not Support.</b></div>"))
