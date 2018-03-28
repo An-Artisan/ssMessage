@@ -3,14 +3,21 @@ package messageHandle
 import (
 	"github.com/gorilla/websocket"
 	"encoding/json"
+	"time"
 	"fmt"
 )
 
 // 定义消息体
 type Message struct {
-	Sender string `json:"sender"`
+	Uid string `json:"uid"`
+	MUid string `json:"muid"`
 	Recipient string `json:"recipient,omitempty"`
 	Content   string `json:"content"`
+}
+
+type Content struct {
+	MessageContent string `json:"messageContent"`
+	HeartBeat   bool `json:"heartBeat"`
 }
 
 func (Manager *ClientManager) Send(message []byte, ignore *Client) {
@@ -55,7 +62,33 @@ func Read(conn *Client) {
 			conn.Socket.Close()
 			break
 		}
-		jsonMessage, _ := json.Marshal(&Message{Sender: conn.Uid, Content: string(message)})
+		data := make(chan byte)
+		go getMessage([]byte(message), data)
+		go heartBeat(conn,data,4)
+		var content Content
+		jsonErr  := json.Unmarshal([]byte(message),&content)
+		if jsonErr!=nil {
+			Manager.MessageErr <- conn
+		}
+
+		// 收到信息广播给其他人
+		jsonMessage, _ := json.Marshal(&Message{Uid: conn.Uid, Content: string(message)})
 		Manager.Broadcast <- jsonMessage
+	}
+}
+func getMessage(message []byte, data chan byte) {
+	for _, v := range message {
+		data <- v
+	}
+	close(data)
+}
+func heartBeat(conn *Client, data chan byte, timeout int) {
+	select {
+	case <-data:
+		//beego.Trace(conn.RemoteAddr().String(), string(fk), ": ", "Heart beating ")
+		conn.Socket.SetReadDeadline(time.Now().Add(time.Duration(timeout) * time.Second))
+	case <-time.After(time.Second * 5):
+		Manager.HeartBeat <- conn
+		conn.Socket.Close()
 	}
 }

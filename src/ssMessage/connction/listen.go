@@ -32,8 +32,9 @@ func WsHandle(res http.ResponseWriter, req *http.Request) {
 
 	//client.Socket.WriteMessage(websocket.TextMessage, []byte ("HelloWorld"))
 	//fmt.Print(client)
-
+	// 连接进来开启一个协程读
 	go messageHandle.Read(client)
+	// 连接进来开启一个协程写
 	go messageHandle.Write(client)
 }
 

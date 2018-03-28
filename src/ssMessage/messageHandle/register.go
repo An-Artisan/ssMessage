@@ -11,6 +11,8 @@ type ClientManager struct {
 	Broadcast  chan []byte
 	Register   chan *Client
 	Unregister chan *Client
+	HeartBeat  chan *Client
+	MessageErr chan *Client
 }
 
 var Manager = ClientManager{
@@ -18,6 +20,8 @@ var Manager = ClientManager{
 	Register:   make(chan *Client),
 	Unregister: make(chan *Client),
 	Clients:    make(map[*Client]bool),
+	HeartBeat:  make(chan *Client),
+	MessageErr:	make(chan *Client),
 }
 
 type Client struct {
@@ -52,7 +56,7 @@ func (Manager *ClientManager) Start() {
 
 			Manager.Send(jsonMessage, conn)
 
-			//	注销或断开链接,发送退出信息广播给其他用户
+		//	注销或断开链接,发送退出信息广播给其他用户
 		case conn := <-Manager.Unregister:
 			// 判断conn信息是否存在
 			if _, ok := Manager.Clients[conn]; ok {
@@ -67,7 +71,7 @@ func (Manager *ClientManager) Start() {
 				Manager.Send(jsonMessage, conn)
 			}
 
-			//	 接受信息
+		//	 接受信息
 		case messageContent := <-Manager.Broadcast:
 			for conn := range Manager.Clients {
 				select {
@@ -77,6 +81,14 @@ func (Manager *ClientManager) Start() {
 					delete(Manager.Clients, conn)
 				}
 			}
+		//	心跳检测出错
+		case conn := <-Manager.HeartBeat:
+			jsonMessage, _ := json.Marshal(&Message{Content: "/Net Error,has disconnected"})
+			Manager.Send(jsonMessage,conn)
+		case conn := <-Manager.MessageErr:
+			jsonMessage, _ := json.Marshal(&Message{Content: "/Net Error,has disconnected"})
+			Manager.Send(jsonMessage,conn)
+
 		}
 	}
 }
