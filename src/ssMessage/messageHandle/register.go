@@ -4,7 +4,6 @@ import (
 	"github.com/satori/go.uuid"
 	"github.com/gorilla/websocket"
 	"encoding/json"
-	"time"
 )
 
 type ClientManager struct {
@@ -12,7 +11,6 @@ type ClientManager struct {
 	Broadcast  chan []byte
 	Register   chan *Client
 	Unregister chan *Client
-	HeartBeat  chan *Client
 	MessageErr chan *Client
 }
 
@@ -21,7 +19,6 @@ var Manager = ClientManager{
 	Register:   make(chan *Client),
 	Unregister: make(chan *Client),
 	Clients:    make(map[*Client]bool),
-	HeartBeat:  make(chan *Client),
 	MessageErr:	make(chan *Client),
 }
 
@@ -30,6 +27,7 @@ type Client struct {
 	MUid   int
 	Socket *websocket.Conn
 	Send   chan []byte
+	HeartBeat chan bool
 }
 
 func GetUid() string {
@@ -39,7 +37,7 @@ func GetUid() string {
 }
 
 func SetUserInfo(conn *websocket.Conn) *Client {
-	client := &Client{Uid: GetUid(), MUid: 0, Socket: conn, Send: make(chan []byte)}
+	client := &Client{Uid: GetUid(), MUid: 0, Socket: conn, Send: make(chan []byte),HeartBeat:make(chan bool)}
 	return client
 }
 
@@ -82,13 +80,7 @@ func (Manager *ClientManager) Start() {
 					delete(Manager.Clients, conn)
 				}
 			}
-		//	心跳检测出错
-		case conn := <-Manager.HeartBeat:
-			jsonMessage, _ := json.Marshal(&Message{Content: "/Net Error,has disconnected"})
-			Manager.SendSelf(jsonMessage,conn)
-			timer := time.NewTimer(1 * time.Second)
-			<-timer.C
-			conn.Socket.Close()
+		//  json数据错误
 		case conn := <-Manager.MessageErr:
 			jsonMessage, _ := json.Marshal(&Message{Content: "/Net Error,has disconnected"})
 			Manager.SendSelf(jsonMessage,conn)

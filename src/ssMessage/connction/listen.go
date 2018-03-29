@@ -8,7 +8,9 @@ import (
 	"time"
 )
 
-
+const(
+	PongWait = time.Second * 5
+)
 func Listen(addr string) error {
 	// 添加ws链接处理函数
 	http.HandleFunc("/ws", WsHandle)
@@ -31,35 +33,27 @@ func WsHandle(res http.ResponseWriter, req *http.Request) {
 	// 把cline写入到注册变量通道
 	messageHandle.Manager.Register <- client
 
-	//client.Socket.WriteMessage(websocket.TextMessage, []byte ("HelloWorld"))
-	//fmt.Print(client)
 
 	// 连接进来开启一个协程读
 	go messageHandle.Read(client)
 	// 连接进来开启一个协程写
 	go messageHandle.Write(client)
-	//data := make(chan  int)
-	//go getMessage(messageHandle.HeartMessage,data)
 
-	go HeartBeat(client,4)
-	messageHandle.HeartMessage <- 1
-
+	go HeartBeat(client)
+	client.HeartBeat <- true
 }
 
-func HeartBeat(conn *messageHandle.Client, imeout int) {
 
+// 心跳包检测
+func HeartBeat(conn *messageHandle.Client) {
 	for {
 		select {
-		case <-messageHandle.HeartMessage:
-			//beego.Trace(conn.RemoteAddr().String(), string(fk), ": ", "Heart beating ")
-			conn.Socket.SetReadDeadline(time.Now().Add(time.Duration(5) * time.Second))
-		case <-time.After(time.Second * 5):
-			messageHandle.Manager.HeartBeat <- conn
+		case <-conn.HeartBeat:
+			conn.Socket.SetReadDeadline(time.Now().Add(PongWait))
+		case <-time.After(PongWait):
+				messageHandle.Manager.Unregister <- conn
 			return
-
 		}
-
 	}
-
 }
 

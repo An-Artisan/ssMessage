@@ -9,6 +9,7 @@
     var msg = $("#msg");
     var log = $("#log");
     var message;
+    var timer;
     function appendLog(msg) {
         var d = log[0]
         var doScroll = d.scrollTop == d.scrollHeight - d.clientHeight;
@@ -30,16 +31,29 @@
         msg.val("");
         return false
     });
-
+    function heartBeat(){
+        timer = window.setInterval(function(){
+            conn.send("OK");
+            console.log("OK");
+        }, 4000);
+    }
     if (window["WebSocket"]) {
         conn = new WebSocket("ws://localhost:8001/ws");
         conn.onclose = function(evt) {
+            clearInterval(timer);
             appendLog($("<div><b>Connection Closed.</b></div>"))
         }
         conn.onmessage = function(evt) {
             appendLog($("<div/>").text(evt.data))
             console.log(1)
         }
+        conn.onopen = function (evt){
+            heartBeat()
+        }
+        conn.onerror = function (evt) {
+            clearInterval(timer);
+        }
+
     } else {
         appendLog($("<div><b>WebSockets Not Support.</b></div>"))
     }
